@@ -1,0 +1,27 @@
+body {
+    background-color: #313131;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #343232;
+    stroke: #0ca90c;
+    stroke-width: 3px;
+}
+
+.node text {
+    font: 12px sans-serif;
+    fill: #fff;
+}
+
+.link {
+    fill: none; 
+    stroke: #4708f5;
+    stroke-width: 1px;
+}
+
