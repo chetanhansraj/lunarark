@@ -1,0 +1,26 @@
+document.addEventListener("DOMContentLoaded", function() {
+    // Fetch the CSV file
+    fetch("events.csv")
+      .then((response) => response.text())
+      .then((data) => {
+        // Parse the CSV data
+        const rows = data.split("\n").slice(1); // Remove the header row
+        const events = rows.map((row) => {
+          const [date, description] = row.split(",");
+          return { date, description };
+        });
+  
+        // Generate the HTML for the events
+        const eventsContainer = document.getElementById("events-container");
+        events.forEach((event) => {
+          const eventDiv = document.createElement("div");
+          eventDiv.classList.add("event");
+          eventDiv.innerHTML = `
+            <h3 class="event-date">${event.date}</h3>
+            <p class="event-description">${event.description}</p>
+          `;
+          eventsContainer.appendChild(eventDiv);
+        });
+    });
+  });
+  
