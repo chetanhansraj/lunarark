@@ -1,8 +1,25 @@
+
 body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     background-color: #313131;
     color: #fff;
     font-family: Arial, sans-serif;
+    /* overflow: hidden; */
 }
+#d3-visualization {
+    min-height: 100vh; /* Use min-height instead of height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Other styles for node, link, etc. */
+
 
 .node {
     cursor: pointer;
