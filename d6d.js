@@ -261,12 +261,12 @@ var diameter = 1920;
 var height = 1080;
 var margin = {top: 20, right: 120, bottom: 20, left: 120};
 
-// Append the svg object to the body of the page
-var svg = d3.select("body").append("svg")
-    .attr("width", diameter)
-    .attr("height", diameter)
-  .append("g")
-    .attr("transform", "translate(" + diameter / 2 + "," + diameter / 2 + ")");
+var svg = d3.select("#d3-visualization").append("svg")
+.attr("width", diameter)
+.attr("height", diameter)
+.append("g")
+.attr("transform", "translate(" + diameter /2 + "," + diameter /2 + ")");
+
 
 var i = 0,
     duration = 750,
@@ -274,10 +274,15 @@ var i = 0,
 
 // Define the zoom function
 var zoom = d3.zoom()
-    .scaleExtent([0.1, 100]) // This defines the minimum and maximum zoom scale, change as needed
-    .on("zoom", function() {
-        svg.attr("transform", d3.event.transform);
-    });
+    .scaleExtent([0.1, 10]) // Adjust the scale extent as needed
+    .on("zoom", zoomed);
+
+svg.call(zoom);
+
+function zoomed() {
+    g.attr("transform", d3.event.transform);
+}
+
 
 
 
@@ -334,6 +339,8 @@ function update(source) {
         return "rotate(" + (source.x0 - 90) + ") translate(" + source.y0 + ")";
     })
     .on('click', click);
+
+    
 
   // Add Circle for the nodes
     nodeEnter.append('circle')
@@ -437,6 +444,7 @@ function update(source) {
 
 
     // Creates a curved (diagonal) path from parent to the child nodes
+    // Creates a curved (diagonal) path from parent to the child nodes
     function diagonal(d) {
         return d3.linkRadial()
             .angle(function(d) { return d.x; })
@@ -445,11 +453,12 @@ function update(source) {
     }
 }
     
-
-    
-var linkGenerator = d3.linkRadial()
-    .angle(function(d) { return d.x; })
-    .radius(function(d) { return d.y; });
+// If you need to use linkGenerator, define it as a function that takes source and target nodes as parameters
+function linkGenerator(sourceNode, targetNode) {
+    return d3.linkRadial()
+        .angle(function(d) { return d.x; })
+        .radius(function(d) { return d.y; })({source: sourceNode, target: targetNode});
+}
 
   // then use it like this:
 var pathData = linkGenerator({
